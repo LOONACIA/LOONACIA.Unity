@@ -8,6 +8,8 @@ public static class ReadOnlySpanExtension
 
 	public ref struct SpanSplitEnumerator
 	{
+		private readonly ReadOnlySpan<char> _source;
+
 		private ReadOnlySpan<char> _string;
 
 		private readonly ReadOnlySpan<char> _separator;
@@ -18,7 +20,7 @@ public static class ReadOnlySpanExtension
 
 		public SpanSplitEnumerator(ReadOnlySpan<char> source, ReadOnlySpan<char> separator)
 		{
-			_string = source;
+			_source = _string = source;
 			_separator = separator;
 			_index = 0;
 			_isEnd = false;
@@ -50,6 +52,14 @@ public static class ReadOnlySpanExtension
 			}
 
 			return true;
+		}
+
+		public void Reset()
+		{
+			_index = 0;
+			_isEnd = false;
+			Current = default;
+			_string = _source;
 		}
 
 		public readonly ref struct SpanSplitEntry

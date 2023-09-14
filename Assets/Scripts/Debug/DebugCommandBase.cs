@@ -1,5 +1,3 @@
-using System;
-
 public abstract class DebugCommandBase
 {
 	public DebugCommandBase(string id, string description, string format)

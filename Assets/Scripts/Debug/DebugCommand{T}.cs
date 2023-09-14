@@ -36,6 +36,12 @@ public class DebugCommand<T> : DebugCommandBase
 
 	public override void Execute(object parameter = null)
 	{
+		if (parameter is string paramString)
+		{
+			Execute(paramString);
+			return;
+		}
+
 		if (!TryGetCommandArgument(parameter, out T argument))
 		{
 			Debug.LogError($"Invalid argument: {parameter}, argument type is {typeof(T)}.");

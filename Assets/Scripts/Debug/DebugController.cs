@@ -86,7 +86,7 @@ public partial class DebugController : MonoBehaviour
 
 	private (string Id, string Parameter) ParseCommandString()
 	{
-		int index = -1;
+		int index;
 		if ((index = _commandString.IndexOf(' ')) == -1)
 		{
 			return (_commandString, string.Empty);
@@ -99,6 +99,18 @@ public partial class DebugController : MonoBehaviour
 	{
 		_commands = new()
 		{
+			new TransformObjectCommand(
+				id: "move",
+				description: "Move the position of specified GameObject",
+				format: "move <name> <position>",
+				type: TransformObjectCommand.TransformType.Position),
+
+			new TransformObjectCommand(
+				id: "rotate",
+				description: "Rotate the specified GameObject",
+				format: "rotate <name> <rotation>",
+				type: TransformObjectCommand.TransformType.Rotation),
+
 			new DebugCommand<float>(
 				id: "time_scale",
 				description: "Change the time scale",
@@ -127,37 +139,5 @@ public partial class DebugController : MonoBehaviour
 
 			new DebugCommand("help", "Shows a list of commands", "help", () => _showHelp = true),
 		};
-	}
-
-	private static bool TryParseVector(ReadOnlySpan<char> parameter, out Vector3 vector)
-	{
-		bool isHandled = false;
-		vector = Vector3.zero;
-
-		foreach (var split in parameter.Split(' '))
-		{
-			if (!float.TryParse(split.Chars, out var value))
-			{
-				continue;
-			}
-
-			switch (split.Index)
-			{
-				case 0:
-					vector.x = value;
-					isHandled = true;
-					break;
-				case 1:
-					vector.y = value;
-					isHandled = true;
-					break;
-				case 2:
-					vector.z = value;
-					isHandled = true;
-					break;
-			}
-		}
-
-		return isHandled;
 	}
 }
