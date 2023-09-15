@@ -12,6 +12,7 @@ partial class DebugController
 		_inputActions ??= new();
 		_inputContext ??= new(this);
 		_inputActions.Debug.SetCallbacks(_inputContext);
+		Managers.Input.RegisterInputActions(_inputActions, "DEBUG");
 		_inputActions.Enable();
 	}
 
@@ -28,7 +29,10 @@ partial class DebugController
 		{
 			if (context.phase == InputActionPhase.Performed)
 			{
-				_controller.ExecuteCommand();
+				if (_controller._isToggled)
+				{
+					_controller.ExecuteCommand();
+				}
 			}
 		}
 

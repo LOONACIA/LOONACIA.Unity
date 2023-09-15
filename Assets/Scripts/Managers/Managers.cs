@@ -4,6 +4,8 @@ public class Managers : MonoBehaviour
 {
 	private static Managers s_Instance;
 
+	private InputManager _input = new();
+
 	private PoolManager _pool = new();
 
 	private ResourceManager _resource = new();
@@ -16,6 +18,8 @@ public class Managers : MonoBehaviour
 			return s_Instance;
 		}
 	}
+
+	public static InputManager Input => Instance._input;
 
 	public static PoolManager Pool => Instance._pool;
 
@@ -31,6 +35,7 @@ public class Managers : MonoBehaviour
 			}
 
 			s_Instance = managersRoot.GetOrAddComponent<Managers>();
+			s_Instance._input.Init();
 			DontDestroyOnLoad(s_Instance);
 		}
 	}
