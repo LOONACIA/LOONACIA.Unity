@@ -16,7 +16,7 @@ public class InputManager
 	public void RegisterInputActions<T>(T inputActions, string key)
 		where T : IInputActionCollection2
 	{
-		_inputActions.Add(key, inputActions);
+		_inputActions[key] = inputActions;
 	}
 
 	public void Enable<T>()
