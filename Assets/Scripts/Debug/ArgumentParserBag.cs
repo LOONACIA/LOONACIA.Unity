@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public static class ArgumentParserBag
@@ -42,9 +43,10 @@ public static class ArgumentParserBag
 		return isHandled;
 	}
 
-	public static bool TryGameObject(ReadOnlySpan<char> parameter, out GameObject gameObject)
+	public static bool TryGetGameObject(ReadOnlySpan<char> parameter, out GameObject gameObject)
 	{
-		gameObject = GameObject.Find(parameter.ToString());
+		string name = Regex.Match(parameter.ToString(), @"\w+|""[\w\s]*""").Value.Trim('\"');
+		gameObject = GameObject.Find(name);
 		return gameObject != null;
 	}
 }

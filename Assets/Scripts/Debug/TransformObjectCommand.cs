@@ -25,18 +25,14 @@ public class TransformObjectCommand : DebugCommandBase
 		}
 
 		var span = paramString.AsSpan();
-		int index = span.IndexOf(' ');
-		if (index == -1)
+
+		if (!ArgumentParserBag.TryGetGameObject(span, out var go))
 		{
 			return;
 		}
 
-		if (!ArgumentParserBag.TryGameObject(span.Slice(0, index), out var go))
-		{
-			return;
-		}
-
-		if (!ArgumentParserBag.TryGetVector3(span.Slice(index + 1), out Vector3 vector))
+		int index = span.IndexOf(go.name) + go.name.Length;
+		if (!ArgumentParserBag.TryGetVector3(span.Slice(index + 1).Trim(), out Vector3 vector))
 		{
 			return;
 		}
