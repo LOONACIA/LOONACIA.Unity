@@ -10,6 +10,8 @@ public class Managers : MonoBehaviour
 
 	private ResourceManager _resource = new();
 
+	private UIManager _ui = new();
+
 	public static Managers Instance
 	{
 		get
@@ -25,18 +27,23 @@ public class Managers : MonoBehaviour
 
 	public static ResourceManager Resource => Instance._resource;
 
+	public static UIManager UI => Instance._ui;
+
 	private static void Init()
 	{
-		if (s_Instance == null)
+		if (s_Instance != null)
 		{
-			if (GameObject.Find("@Managers") is not GameObject managersRoot)
-			{
-				managersRoot = new() { name = "@Managers" };
-			}
-
-			s_Instance = managersRoot.GetOrAddComponent<Managers>();
-			s_Instance._input.Init();
-			DontDestroyOnLoad(s_Instance);
+			return;
 		}
+		
+		if (GameObject.Find("@Managers") is not { } managersRoot)
+		{
+			managersRoot = new() { name = "@Managers" };
+		}
+
+		s_Instance = managersRoot.GetOrAddComponent<Managers>();
+		DontDestroyOnLoad(s_Instance);
+			
+		s_Instance._input.Init();
 	}
 }
