@@ -27,23 +27,27 @@ partial class DebugController
 
 		public void OnReturn(InputAction.CallbackContext context)
 		{
-			if (context.phase == InputActionPhase.Performed)
+			if (context.phase != InputActionPhase.Performed)
 			{
-				if (_controller._isToggled)
-				{
-					_controller.ExecuteCommand();
-				}
+				return;
+			}
+			
+			if (_controller._isToggled)
+			{
+				_controller.ExecuteCommand();
 			}
 		}
 
 		public void OnToggle(InputAction.CallbackContext context)
 		{
-			if (context.phase == InputActionPhase.Performed)
+			if (context.phase != InputActionPhase.Performed)
 			{
-				_controller._isToggled = !_controller._isToggled;
-				Action handlePlayerInput = _controller._isToggled ? _controller._disablePlayerInput : _controller._enablePlayerInput;
-				handlePlayerInput?.Invoke();
+				return;
 			}
+			
+			_controller._isToggled = !_controller._isToggled;
+			Action handlePlayerInput = _controller._isToggled ? _controller._disablePlayerInput : _controller._enablePlayerInput;
+			handlePlayerInput?.Invoke();
 		}
 	}
 }

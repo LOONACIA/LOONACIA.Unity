@@ -55,17 +55,19 @@ public class InputManager
 
 	private void OnActionChange(object arg, InputActionChange phase)
 	{
-		if (phase == InputActionChange.ActionPerformed)
+		if (phase != InputActionChange.ActionPerformed)
 		{
-			if (arg is not InputAction inputAction)
-			{
-				return;
-			}
+			return;
+		}
+		
+		if (arg is not InputAction inputAction)
+		{
+			return;
+		}
 
-			if (inputAction.GetBindingForControl(inputAction.activeControl) is InputBinding binding)
-			{
-				CurrentControlScheme = binding.groups;
-			}
+		if (inputAction.GetBindingForControl(inputAction.activeControl) is { } binding)
+		{
+			CurrentControlScheme = binding.groups;
 		}
 	}
 }

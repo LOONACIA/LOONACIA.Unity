@@ -10,7 +10,7 @@ public class TransformObjectCommand : DebugCommandBase
 		Position
 	}
 
-	private TransformType _type;
+	private readonly TransformType _type;
 
 	public TransformObjectCommand(string id, string description, string format, TransformType type) : base(id, description, format)
 	{
@@ -48,6 +48,8 @@ public class TransformObjectCommand : DebugCommandBase
 			case TransformType.Position:
 				go.transform.position = vector;
 				break;
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
 	}
 }

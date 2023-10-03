@@ -12,7 +12,7 @@ public class PoolManager
 	{
 		get
 		{
-			if (GameObject.Find("@Pool_Root") is not GameObject root)
+			if (GameObject.Find("@Pool_Root") is not { } root)
 			{
 				root = new() { name = "@Pool_Root" };
 			}
@@ -23,7 +23,7 @@ public class PoolManager
 
 	public Poolable Get(string name)
 	{
-		if (!_originals.TryGetValue(name, out var original))
+		if (!_originals.TryGetValue(name, out GameObject original))
 		{
 			original = Resources.Load<GameObject>($"Prefabs/{name}");
 		}

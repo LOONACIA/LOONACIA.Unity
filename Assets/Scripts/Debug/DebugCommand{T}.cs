@@ -52,22 +52,17 @@ public class DebugCommand<T> : DebugCommandBase
 
 	private static bool TryGetCommandArgument(object parameter, out T argument)
 	{
-		if (parameter is null && default(T) is null)
+		switch (parameter)
 		{
-			argument = default;
-
-			return true;
+			case null when default(T) is null:
+				argument = default;
+				return true;
+			case T result:
+				argument = result;
+				return true;
+			default:
+				argument = default;
+				return false;
 		}
-
-		if (parameter is T result)
-		{
-			argument = result;
-
-			return true;
-		}
-
-		argument = default;
-
-		return false;
 	}
 }
