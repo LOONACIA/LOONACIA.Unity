@@ -23,10 +23,14 @@ public class CoroutineEx
 
     public void Abort()
     {
-        if (_handler != null)
+        if (_handler == null)
         {
-            _root.StopCoroutine(_handler);
+            return;
         }
+
+        _root.StopCoroutine(_handler);
+        _handler = null;
+        IsRunning = false;
     }
 
     private void Start(IEnumerator routine)
