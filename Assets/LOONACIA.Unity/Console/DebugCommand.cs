@@ -1,6 +1,6 @@
 using System;
 
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	public class DebugCommand : DebugCommandBase
 	{

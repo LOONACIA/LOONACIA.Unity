@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LOONACIA.Unity.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
     public partial class DebugController : MonoBehaviour
     {
@@ -114,7 +115,7 @@ namespace LOONACIA.Unity.Debug
                     id: "reload",
                     description: "Reload the current scene",
                     format: "reload",
-                    execute: () => SceneManager.LoadScene(SceneManager.GetActiveScene().name)),
+                    execute: () => SceneManagerEx.LoadScene(SceneManager.GetActiveScene().name)),
 
                 new DebugCommand(
                     id: "exit",

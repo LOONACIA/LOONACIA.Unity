@@ -10,12 +10,12 @@ namespace LOONACIA.Unity
     {
         public static CoroutineEx Lerp(float from, float to, float duration, System.Action<float> action, System.Action callback = null)
         {
-            return CoroutineEx.Create(ManagerHost.Instance, LerpCoroutine(from, to, duration, action, callback));
+            return CoroutineEx.Create(Manager.Instance, LerpCoroutine(from, to, duration, action, callback));
         }
 
         public static CoroutineEx Lerp(Vector3 from, Vector3 to, float duration, System.Action<Vector3> action, System.Action callback = null)
         {
-            return CoroutineEx.Create(ManagerHost.Instance, LerpCoroutine(from, to, duration, action, callback));
+            return CoroutineEx.Create(Manager.Instance, LerpCoroutine(from, to, duration, action, callback));
         }
 
         private static IEnumerator LerpCoroutine(float from, float to, float duration, System.Action<float> action, System.Action callback)

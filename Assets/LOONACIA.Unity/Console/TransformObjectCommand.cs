@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	public class TransformObjectCommand : DebugCommandBase
 	{

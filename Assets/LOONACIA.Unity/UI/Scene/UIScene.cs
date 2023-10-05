@@ -6,7 +6,7 @@ namespace LOONACIA.Unity.UI
     {
         protected override void Init()
         {
-            ManagerHost.UI.SetCanvas(gameObject, false);
+            Manager.UI.SetCanvas(gameObject, false);
         }
     }
 }

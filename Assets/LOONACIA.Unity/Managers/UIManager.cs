@@ -8,27 +8,27 @@ namespace LOONACIA.Unity.Managers
     {
         private readonly Stack<UIPopup> _popupStack = new();
 
+        private Transform _root;
+
         private UIScene _sceneUI;
 
         private int _order = 0;
 
-        public static GameObject Root
+        private Transform Root
         {
             get
             {
-                if (GameObject.Find("@UI_Root") is not { } root)
-                {
-                    root = new() { name = "@UI_Root" };
-                }
-
-                return root;
+                Init();
+                return _root;
             }
         }
 
         public void Init()
         {
-            ClearAllPopup();
-            _popupStack.Clear();
+            if (_root == null)
+            {
+                _root = new GameObject { name = "@UI_Root" }.transform;
+            }
         }
 
         public void SetCanvas(GameObject gameObject, bool sort = true)
@@ -48,7 +48,7 @@ namespace LOONACIA.Unity.Managers
                 name = typeof(T).Name;
             }
 
-            GameObject gameObject = ManagerHost.Resource.Instantiate($"UI/Scene/{name}");
+            GameObject gameObject = Manager.Resource.Instantiate($"UI/Scene/{name}");
             var sceneUI = gameObject.GetOrAddComponent<T>();
             _sceneUI = sceneUI;
 
@@ -65,7 +65,7 @@ namespace LOONACIA.Unity.Managers
                 name = typeof(T).Name;
             }
 
-            GameObject gameObject = ManagerHost.Resource.Instantiate($"UI/Popup/{name}", usePool: usePool);
+            GameObject gameObject = Manager.Resource.Instantiate($"UI/Popup/{name}", usePool: usePool);
             var popup = gameObject.GetOrAddComponent<T>();
             _popupStack.Push(popup);
 
@@ -81,20 +81,14 @@ namespace LOONACIA.Unity.Managers
                 return;
             }
 
-            while (_popupStack.TryPeek(out var last) && last != popup)
+            if (_popupStack.Peek() != popup)
             {
-                last = _popupStack.Pop();
-                ManagerHost.Resource.Release(last.gameObject);
+                Debug.Log($"Can't close popup: {popup.name}");
+                return;
             }
 
-            if (_popupStack.TryPop(out popup))
-            {
-                //popup = _popupStack.Pop();
-                if (popup != null && popup.gameObject != null)
-                {
-                    ManagerHost.Resource.Release(popup.gameObject);
-                }
-            }
+            popup = _popupStack.Pop();
+            Manager.Resource.Release(popup.gameObject);
 
             _order--;
         }
@@ -112,6 +106,17 @@ namespace LOONACIA.Unity.Managers
             while (_popupStack.Count > 0)
             {
                 ClosePopupUI();
+            }
+        }
+        
+        public void Clear(bool destroyAssociatedObject)
+        {
+            ClearAllPopup();
+            _sceneUI = null;
+
+            if (destroyAssociatedObject)
+            {
+                Object.Destroy(Root);
             }
         }
     }

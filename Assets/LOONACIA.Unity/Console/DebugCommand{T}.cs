@@ -1,6 +1,6 @@
 using System;
 
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	public delegate bool DebugCommandParser<T>(ReadOnlySpan<char> chars, out T argument);
 

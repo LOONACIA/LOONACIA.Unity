@@ -1,4 +1,4 @@
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	public abstract class DebugCommandBase
 	{

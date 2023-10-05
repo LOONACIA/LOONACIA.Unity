@@ -11,16 +11,22 @@ namespace LOONACIA.Unity.Managers
 
 		private readonly Dictionary<string, IObjectPool<Poolable>> _registeredPools = new();
 
+		private Transform _root;
+		
 		private Transform Root
 		{
 			get
 			{
-				if (GameObject.Find("@Pool_Root") is not { } root)
-				{
-					root = new() { name = "@Pool_Root" };
-				}
+				Init();
+				return _root;
+			}
+		}
 
-				return root.transform;
+		public void Init()
+		{
+			if (_root == null)
+			{
+				_root = new GameObject { name = "@Pool_Root" }.transform;
 			}
 		}
 
@@ -45,6 +51,22 @@ namespace LOONACIA.Unity.Managers
 		{
 			pooledObject.transform.parent = Root;
 			pooledObject.Pool.Release(pooledObject);
+		}
+
+		public void Clear(bool destroyAssociatedObject)
+		{
+			foreach (Transform child in _root)
+			{
+				Object.Destroy(child.gameObject);
+			}
+
+			_originals.Clear();
+			_registeredPools.Clear();
+
+			if (destroyAssociatedObject)
+			{
+				Object.Destroy(_root);
+			}
 		}
 
 		private Poolable Create(GameObject original)

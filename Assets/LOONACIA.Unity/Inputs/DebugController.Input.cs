@@ -3,7 +3,7 @@ using LOONACIA.Unity.Managers;
 using UnityEngine.InputSystem;
 
 // ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	partial class DebugController
 	{
@@ -16,7 +16,7 @@ namespace LOONACIA.Unity.Debug
 			_inputActions ??= new();
 			_inputContext ??= new(this);
 			_inputActions.Debug.SetCallbacks(_inputContext);
-			ManagerHost.Input.RegisterInputActions(_inputActions, "DEBUG");
+			Manager.Input.RegisterInputActions(_inputActions, "DEBUG");
 			_inputActions.Enable();
 		}
 

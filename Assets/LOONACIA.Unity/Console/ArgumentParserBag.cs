@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace LOONACIA.Unity.Debug
+namespace LOONACIA.Unity.Console
 {
 	public static class ArgumentParserBag
 	{
