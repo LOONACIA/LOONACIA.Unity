@@ -10,21 +10,38 @@ namespace LOONACIA.Unity.Managers
 		public string CurrentControlScheme { get; private set; }
 
 		public void RegisterInputActions<T>(T inputActions)
-			where T : IInputActionCollection2
+			where T : class, IInputActionCollection2
 		{
 			RegisterInputActions(inputActions, typeof(T).Name);
 		}
 
 		public void RegisterInputActions<T>(T inputActions, string key)
-			where T : IInputActionCollection2
+			where T : class, IInputActionCollection2
 		{
 			_inputActions[key] = inputActions;
 		}
 
-		public void Enable<T>()
-			where T : IInputActionCollection2
+		public T GetInputActions<T>(string key = null)
+			where T : class, IInputActionCollection2, new()
 		{
-			Enable(typeof(T).Name);
+			key ??= typeof(T).Name;
+			if (!_inputActions.TryGetValue(key, out var inputActions))
+			{
+				inputActions = new T();
+				_inputActions.Add(key, inputActions);
+			}
+
+			return inputActions as T;
+		}
+
+		public void Enable<T>(string key = null)
+			where T : class, IInputActionCollection2
+		{
+			key ??= typeof(T).Name;
+			if (_inputActions.TryGetValue(key, out var inputActions) && inputActions is T)
+			{
+				inputActions.Enable();
+			}
 		}
 
 		public void Enable(string key)
@@ -35,10 +52,14 @@ namespace LOONACIA.Unity.Managers
 			}
 		}
 
-		public void Disable<T>()
-			where T : IInputActionCollection2
+		public void Disable<T>(string key = null)
+			where T : class, IInputActionCollection2
 		{
-			Disable(typeof(T).Name);
+			key ??= typeof(T).Name;
+			if (_inputActions.TryGetValue(key, out var inputActions) && inputActions is T)
+			{
+				inputActions.Disable();
+			}
 		}
 
 		public void Disable(string key)
