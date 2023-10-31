@@ -48,7 +48,7 @@ namespace LOONACIA.Unity.Managers
                 name = typeof(T).Name;
             }
 
-            GameObject gameObject = Manager.Resource.Instantiate($"UI/Scene/{name}");
+            GameObject gameObject = ManagerRoot.Resource.Instantiate($"UI/Scene/{name}");
             var sceneUI = gameObject.GetOrAddComponent<T>();
             _sceneUI = sceneUI;
 
@@ -65,7 +65,7 @@ namespace LOONACIA.Unity.Managers
                 name = typeof(T).Name;
             }
 
-            GameObject gameObject = Manager.Resource.Instantiate($"UI/Popup/{name}", usePool: usePool);
+            GameObject gameObject = ManagerRoot.Resource.Instantiate($"UI/Popup/{name}", usePool: usePool);
             var popup = gameObject.GetOrAddComponent<T>();
             _popupStack.Push(popup);
 
@@ -88,7 +88,7 @@ namespace LOONACIA.Unity.Managers
             }
 
             popup = _popupStack.Pop();
-            Manager.Resource.Release(popup.gameObject);
+            ManagerRoot.Resource.Release(popup.gameObject);
 
             _order--;
         }
@@ -116,7 +116,7 @@ namespace LOONACIA.Unity.Managers
 
             if (destroyAssociatedObject)
             {
-                Object.Destroy(Root);
+                Object.Destroy(_root.gameObject);
             }
         }
     }

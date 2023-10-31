@@ -65,7 +65,7 @@ namespace LOONACIA.Unity.Managers
 
 			if (destroyAssociatedObject)
 			{
-				Object.Destroy(_root);
+				Object.Destroy(_root.gameObject);
 			}
 		}
 

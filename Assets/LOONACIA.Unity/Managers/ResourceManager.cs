@@ -14,7 +14,7 @@ namespace LOONACIA.Unity.Managers
 		{
 			if (usePool)
 			{
-				var poolable = Manager.Pool.Get(name);
+				var poolable = ManagerRoot.Pool.Get(name);
 				poolable.transform.parent = parent;
 				return poolable.gameObject;
 			}
@@ -35,7 +35,7 @@ namespace LOONACIA.Unity.Managers
 		{
 			if (usePool)
 			{
-				var poolable = Manager.Pool.Get(prefab);
+				var poolable = ManagerRoot.Pool.Get(prefab);
 				poolable.transform.parent = parent;
 				poolable.transform.localPosition = Vector3.zero;
 				return poolable.gameObject;
@@ -64,7 +64,7 @@ namespace LOONACIA.Unity.Managers
 
 			if (go.TryGetComponent<Poolable>(out var poolable))
 			{
-				Manager.Pool.Release(poolable);
+				ManagerRoot.Pool.Release(poolable);
 			}
 			else
 			{

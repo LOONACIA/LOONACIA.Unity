@@ -6,12 +6,12 @@ namespace LOONACIA.Unity.UI
     {
         protected override void Init()
         {
-            Manager.UI.SetCanvas(gameObject, true);
+            ManagerRoot.UI.SetCanvas(gameObject, true);
         }
 
         public virtual void Close()
         {
-            Manager.UI.ClosePopupUI(this);
+            ManagerRoot.UI.ClosePopupUI(this);
         }
     }
 }

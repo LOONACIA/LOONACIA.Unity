@@ -27,7 +27,7 @@ namespace LOONACIA.Unity.Console
         {
             Init();
             EnableInput();
-        }
+            }
 
         private void OnGUI()
         {

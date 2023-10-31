@@ -20,7 +20,7 @@ namespace LOONACIA.Unity.Managers
 				return cache as T;
 			}
 
-			var textAsset = Manager.Resource.Load<TextAsset>($"Data/{name}");
+			var textAsset = ManagerRoot.Resource.Load<TextAsset>($"Data/{name}");
 			var data = JsonUtility.FromJson<T>(textAsset.text);
 			_data.Add(name, data);
 

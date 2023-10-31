@@ -13,10 +13,10 @@ namespace LOONACIA.Unity.Console
 
 		private void EnableInput()
 		{
-			_inputActions ??= Manager.Input.GetInputActions<DebugInputActions>();
+			_inputActions ??= ManagerRoot.Input.GetInputActions<DebugInputActions>();
 			_inputContext ??= new(this);
 			_inputActions.Debug.SetCallbacks(_inputContext);
-			Manager.Input.RegisterInputActions(_inputActions, "DEBUG");
+			ManagerRoot.Input.RegisterInputActions(_inputActions, "DEBUG");
 			_inputActions.Enable();
 		}
 
