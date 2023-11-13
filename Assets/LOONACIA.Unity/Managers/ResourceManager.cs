@@ -15,7 +15,7 @@ namespace LOONACIA.Unity.Managers
 			if (usePool)
 			{
 				var poolable = ManagerRoot.Pool.Get(name);
-				poolable.transform.parent = parent;
+				poolable.transform.SetParent(parent);
 				return poolable.gameObject;
 			}
 			else
@@ -36,7 +36,7 @@ namespace LOONACIA.Unity.Managers
 			if (usePool)
 			{
 				var poolable = ManagerRoot.Pool.Get(prefab);
-				poolable.transform.parent = parent;
+				poolable.transform.SetParent(parent);
 				poolable.transform.localPosition = Vector3.zero;
 				return poolable.gameObject;
 			}
