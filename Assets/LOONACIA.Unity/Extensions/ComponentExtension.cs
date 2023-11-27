@@ -1,7 +1,5 @@
-using UnityEngine;
-
 // ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity
+namespace UnityEngine
 {
 	public static class ComponentExtension
 	{
@@ -9,6 +7,12 @@ namespace LOONACIA.Unity
 			where T : Object
 		{
 			return component.gameObject.FindChild<T>(name, recursive);
+		}
+		
+		public static T GetOrAddComponent<T>(this Component component)
+			where T : Component
+		{
+			return component.gameObject.GetOrAddComponent<T>();
 		}
 	}
 }

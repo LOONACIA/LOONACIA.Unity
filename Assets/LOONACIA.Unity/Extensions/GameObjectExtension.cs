@@ -1,8 +1,7 @@
 using System.Linq;
-using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity
+namespace UnityEngine
 {
 	public static class GameObjectExtension
 	{
@@ -13,7 +12,7 @@ namespace LOONACIA.Unity
 			{
 				component = gameObject.AddComponent<T>();
 			}
-
+			
 			return component;
 		}
 	

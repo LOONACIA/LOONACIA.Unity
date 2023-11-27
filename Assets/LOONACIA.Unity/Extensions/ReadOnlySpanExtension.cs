@@ -1,7 +1,5 @@
-using System;
-
 // ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity
+namespace System
 {
 	public static class ReadOnlySpanExtension
 	{
