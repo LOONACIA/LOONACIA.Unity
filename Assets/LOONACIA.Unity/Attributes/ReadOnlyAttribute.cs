@@ -8,7 +8,7 @@ namespace LOONACIA.Unity
     /// <summary>
     /// An attribute that make a field read-only in the inspector.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class ReadOnlyAttribute : PropertyAttribute
     {
         /// <summary>

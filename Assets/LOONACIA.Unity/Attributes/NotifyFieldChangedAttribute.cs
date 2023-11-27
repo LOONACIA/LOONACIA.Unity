@@ -27,7 +27,7 @@ namespace LOONACIA.Unity
 	/// </code>
 	/// </para>
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Field)]
+	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public class NotifyFieldChangedAttribute : PropertyAttribute
 	{
 		/// <summary>
