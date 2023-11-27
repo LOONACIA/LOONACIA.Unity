@@ -16,7 +16,6 @@ namespace LOONACIA.Unity.Console
 			_inputActions ??= ManagerRoot.Input.GetInputActions<DebugInputActions>();
 			_inputContext ??= new(this);
 			_inputActions.Debug.SetCallbacks(_inputContext);
-			ManagerRoot.Input.RegisterInputActions(_inputActions, "DEBUG");
 			_inputActions.Enable();
 		}
 
@@ -50,6 +49,7 @@ namespace LOONACIA.Unity.Console
 				}
 			
 				_controller._isToggled = !_controller._isToggled;
+				_controller.Toggled?.Invoke(_controller, _controller._isToggled);
 			}
 		}
 	}

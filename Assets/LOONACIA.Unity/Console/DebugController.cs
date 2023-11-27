@@ -23,11 +23,13 @@ namespace LOONACIA.Unity.Console
 
         private Action _disablePlayerInput;
 
+        public event EventHandler<bool> Toggled;
+
         private void Awake()
         {
             Init();
             EnableInput();
-            }
+        }
 
         private void OnGUI()
         {
@@ -48,8 +50,10 @@ namespace LOONACIA.Unity.Console
                 GUI.Box(new(0, y, Screen.width, helpBoxHeight), string.Empty);
                 Rect viewport = new(0, 0, Screen.width - 30, fontSize * _commands.Count);
 
-                _scrollView = GUI.BeginScrollView(new(0, y + 5f, Screen.width, helpBoxHeight - 10f), _scrollView, viewport);
-                foreach ((DebugCommandBase command, int index) in _commands.Select((command, index) => (command, index)))
+                _scrollView = GUI.BeginScrollView(new(0, y + 5f, Screen.width, helpBoxHeight - 10f), _scrollView,
+                    viewport);
+                foreach ((DebugCommandBase command, int index) in
+                         _commands.Select((command, index) => (command, index)))
                 {
                     Rect labelRect = new(5, (fontSize * 1.5f) * index, viewport.width - 100, fontSize * 1.5f);
                     GUI.Label(labelRect, $"{command.Format} - {command.Description}");
@@ -63,7 +67,8 @@ namespace LOONACIA.Unity.Console
             GUI.Box(new(0, y, Screen.width, fontSize * 2f), string.Empty);
             GUI.backgroundColor = new();
             GUI.SetNextControlName("DebugConsole");
-            _commandString = GUI.TextField(new(10f, y + (fontSize / 2f), Screen.width - 20f, fontSize * 1.5f), _commandString);
+            _commandString = GUI.TextField(new(10f, y + (fontSize / 2f), Screen.width - 20f, fontSize * 1.5f),
+                _commandString);
             GUI.FocusControl("DebugConsole");
         }
 
@@ -126,7 +131,7 @@ namespace LOONACIA.Unity.Console
 #if UNITY_EDITOR
                         UnityEditor.EditorApplication.isPlaying = false;
 #else
-					Application.Quit();
+					    Application.Quit();
 #endif
                     }),
 
