@@ -6,6 +6,12 @@ namespace System
 {
 	public static class EnumExtension
 	{
+		/// <summary>
+		/// Returns whether the given enum has the given flag.
+		/// </summary>
+		/// <param name="flag">A flag to check.</param>
+		/// <returns>True if the given enum has the given flag. Otherwise, false.</returns>
+		/// <exception cref="NotSupportedException"></exception>
 		public static bool Has<T>(this T @enum, T flag)
 			where T : unmanaged, Enum
 		{
@@ -19,6 +25,11 @@ namespace System
 			};
 		}
 		
+		/// <summary>
+		/// Sets the given flag to the given value.
+		/// </summary>
+		/// <param name="flag">A flag to set.</param>
+		/// <param name="value">A value to set.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Set<T>(this ref T @enum, T flag, bool value)
 			where T : unmanaged, Enum
