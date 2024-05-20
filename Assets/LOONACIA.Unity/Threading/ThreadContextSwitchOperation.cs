@@ -1,9 +1,10 @@
 using System;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace LOONACIA.Unity.Threading
 {
-    public readonly struct ThreadContextSwitchOperation : IAwaitable<ThreadContextSwitchOperation>, IAwaiter
+    public readonly struct ThreadContextSwitchOperation : IAwaitable<ThreadContextSwitchOperation>, IAwaiter, ICriticalNotifyCompletion
     {
         private readonly bool _isSwitchingToMainThread;
         
@@ -24,10 +25,23 @@ namespace LOONACIA.Unity.Threading
             }
             else
             {
-                Task.Run(continuation);
+                ThreadPool.QueueUserWorkItem(obj => continuation(), null);
             }
         }
-        
+
+        public void UnsafeOnCompleted(Action continuation)
+        {
+            if (_isSwitchingToMainThread)
+            {
+                using var flowControl = ExecutionContext.SuppressFlow();
+                Dispatcher.Current.Enqueue(continuation);
+            }
+            else
+            {
+                ThreadPool.UnsafeQueueUserWorkItem(obj => continuation(), null);
+            }
+        }
+
         public void GetResult()
         {
         }
