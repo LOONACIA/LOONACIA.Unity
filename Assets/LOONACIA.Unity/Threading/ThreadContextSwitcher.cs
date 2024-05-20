@@ -4,6 +4,6 @@ namespace LOONACIA.Unity.Threading
     {
         public static ThreadContextSwitchOperation SwitchToMainThreadAsync() => new(true);
         
-        public static ThreadContextSwitchOperation SwitchToBackgroundAsync() => new(false);
+        public static ThreadContextSwitchOperation SwitchToBackgroundThreadAsync() => new(false);
     }
 }
