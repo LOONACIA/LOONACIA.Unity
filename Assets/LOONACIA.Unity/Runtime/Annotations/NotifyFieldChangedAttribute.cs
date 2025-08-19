@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity
+namespace LOONACIA.Unity.Annotations
 {
 	/// <summary>
 	/// Invoke method when field changed in inspector<br/>

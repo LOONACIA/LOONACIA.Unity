@@ -1,9 +1,7 @@
 using System;
-using LOONACIA.Unity;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace LOONACIA.Unity
+namespace LOONACIA.Unity.Annotations
 {
     /// <summary>
     /// An attribute that make a field read-only in the inspector.
